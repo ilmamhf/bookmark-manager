@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import icon from "../assets/react.svg";
-import BookmarkCard from "../features/dashboard/components/BookmarkCard";
-import type { Bookmark } from "../features/dashboard";
+import type { Bookmark } from "../features/bookmarks";
+import BookmarkList from "../features/bookmarks/components/BookmarkList";
 
 export const sampleBookmarks = [
   {
@@ -73,12 +73,12 @@ export const sampleBookmarks = [
 ];
 
 const Dashboard = () => {
-  const [bookmarksList, setBookmarksList] = useState<Bookmark[] | null>(null);
+  const [bookmarkList, setbookmarkList] = useState<Bookmark[] | null>(null);
 
   const fetchBookmark = async () => {
     try {
       const data = sampleBookmarks;
-      setBookmarksList(data);
+      setbookmarkList(data);
     } catch (er) {}
   };
 
@@ -99,11 +99,7 @@ const Dashboard = () => {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 bg-amber-400">
-        {bookmarksList?.map((bookmark) => (
-          <BookmarkCard bookmarkItem={bookmark} />
-        ))}
-      </div>
+      <BookmarkList bookmarkList={bookmarkList} />
     </div>
   );
 };

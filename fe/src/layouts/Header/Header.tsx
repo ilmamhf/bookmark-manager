@@ -1,4 +1,4 @@
-import icon from "../assets/react.svg";
+import icon from "../../assets/react.svg";
 
 const Header = () => {
   return (

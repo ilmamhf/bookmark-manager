@@ -1,6 +1,6 @@
-import icon from "../assets/react.svg";
-import NavButton from "../features/sidebar/components/NavButton";
-import TagsCheckbox from "../features/sidebar/components/TagsCheckbox";
+import icon from "../../assets/react.svg";
+import NavButton from "./components/NavButton";
+import TagsCheckbox from "./components/TagsCheckbox";
 
 const Sidebar = () => {
   return (
