@@ -19,7 +19,7 @@ const Header = () => {
       </div>
 
       <div className="flex items-center ml-auto gap-4">
-        <button className="flex bg-green-600 rounded-xl p-4 items-center justify-center">
+        <button className="flex bg-green-600 rounded-xl p-4 items-center justify-center hover:bg-green-700">
           <span>+ Add Bookmark</span>
         </button>
 
