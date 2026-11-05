@@ -1,11 +1,11 @@
 import "./App.css";
 import DashboardLayout from "./layouts/DashboardLayout";
-import Dashboard from "./pages/Dashboard";
+import DashboardPage from "./pages/DashboardPage";
 
 function App() {
   return (
     <DashboardLayout>
-      <Dashboard />
+      {(searchQuery) => <DashboardPage searchQuery={searchQuery} />}
     </DashboardLayout>
   );
 }

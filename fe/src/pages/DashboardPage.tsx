@@ -72,8 +72,15 @@ export const sampleBookmarks = [
   },
 ];
 
-const Dashboard = () => {
-  const [bookmarkList, setbookmarkList] = useState<Bookmark[] | null>(null);
+interface DashboardPageProps {
+  searchQuery: string;
+}
+
+const DashboardPage = ({ searchQuery }: DashboardPageProps) => {
+  const [bookmarkList, setbookmarkList] = useState<Bookmark[]>([]);
+  const filteredBookmarkList = bookmarkList.filter((bookmark) =>
+    bookmark.title.toLowerCase().includes(searchQuery.trim().toLowerCase()),
+  );
 
   const fetchBookmark = async () => {
     try {
@@ -85,6 +92,7 @@ const Dashboard = () => {
   useEffect(() => {
     fetchBookmark();
   }, []);
+
   return (
     <div className="p-8 grid grid-flow-row gap-4">
       <div className="flex items-end justify-between">
@@ -99,9 +107,13 @@ const Dashboard = () => {
         </button>
       </div>
 
-      <BookmarkList bookmarkList={bookmarkList} />
+      <BookmarkList
+        bookmarkList={
+          filteredBookmarkList ? filteredBookmarkList : bookmarkList
+        }
+      />
     </div>
   );
 };
 
-export default Dashboard;
+export default DashboardPage;
