@@ -5,7 +5,12 @@ import DashboardPage from "./pages/DashboardPage";
 function App() {
   return (
     <DashboardLayout>
-      {(searchQuery) => <DashboardPage searchQuery={searchQuery} />}
+      {(bookmarkList, filteredBookmarkList) => (
+        <DashboardPage
+          bookmarkList={bookmarkList}
+          filteredBookmarkList={filteredBookmarkList}
+        />
+      )}
     </DashboardLayout>
   );
 }

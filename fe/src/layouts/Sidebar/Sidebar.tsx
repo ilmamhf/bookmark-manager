@@ -2,7 +2,13 @@ import icon from "../../assets/react.svg";
 import NavButton from "./components/NavButton";
 import TagsCheckbox from "./components/TagsCheckbox";
 
-const Sidebar = () => {
+interface SidebarProps {
+  tagList: string[];
+  selectedTags: string[] | null;
+  handleTagChange: (value: string) => void | null;
+}
+
+const Sidebar = ({ tagList, selectedTags, handleTagChange }: SidebarProps) => {
   return (
     <aside className="w-80 bg-amber-50 p-4">
       <div className="flex items-center py-4 pb-8">
@@ -29,9 +35,13 @@ const Sidebar = () => {
       </div>
       <div className="py-4">
         <label className="p-2">TAGS</label>
-        <TagsCheckbox text="AI" />
-        <TagsCheckbox text="Design" />
-        <TagsCheckbox text="Framework" />
+        {tagList.map((tag) => (
+          <TagsCheckbox
+            key={tag}
+            tag={tag}
+            onTagChange={() => handleTagChange(tag)}
+          />
+        ))}
       </div>
     </aside>
   );
