@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import Header from "./Header/Header";
 import Sidebar from "./Sidebar/Sidebar";
-import { sampleBookmarks, type Bookmark } from "../features/bookmarks";
+import {
+  sampleBookmarks,
+  type Bookmark,
+  type BookmarkFormData,
+} from "../features/bookmarks";
+import BookmarkFormModal from "../features/bookmarks/components/BookmarkFormModal";
 
 interface DashboardLayoutProps {
   children: (
@@ -14,6 +19,9 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [bookmarkList, setBookmarkList] = useState<Bookmark[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [editingBookmark, setEditingBookmark] = useState<Bookmark | null>(null);
+
   const filteredBookmarkList = bookmarkList.filter((bookmark) => {
     const query = searchQuery.trim().toLowerCase();
 
@@ -44,6 +52,26 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     } catch (er) {}
   };
 
+  const handleOpenCreateModal = () => {
+    setEditingBookmark(null);
+    setIsModalOpen(true);
+  };
+
+  const handleFormSubmit = (formData: BookmarkFormData) => {
+    if (editingBookmark) {
+    } else {
+      // create
+      const newBookmark: Bookmark = {
+        id: bookmarkList.length + 1,
+        ...formData,
+        lastEdited: Date.now().toString(),
+        lastSeen: Date.now().toString(),
+        seenCount: 0,
+      };
+      setBookmarkList((prev) => [...prev, newBookmark]);
+    }
+  };
+
   useEffect(() => {
     fetchBookmark();
   }, []);
@@ -59,9 +87,17 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         <Header
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
+          onOpenCreateModal={handleOpenCreateModal}
         />
         {children(bookmarkList, filteredBookmarkList)}
       </main>
+
+      <BookmarkFormModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleFormSubmit}
+        initialData={editingBookmark}
+      />
     </div>
   );
 };

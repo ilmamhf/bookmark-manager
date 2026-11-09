@@ -9,6 +9,13 @@ export interface Bookmark {
   lastEdited: string;
 }
 
+export interface BookmarkFormData {
+  title: string;
+  detail: string;
+  description: string;
+  tags: string[];
+}
+
 export const sampleBookmarks = [
   {
     id: 1,
