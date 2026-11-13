@@ -1,5 +1,6 @@
 import type { Bookmark } from "..";
 import icon from "../../../assets/react.svg";
+import { formatDate } from "../../../utils/date";
 
 interface BookmarkCardProps {
   bookmarkItem: Bookmark;
@@ -44,7 +45,7 @@ const BookmarkCard = ({ bookmarkItem }: BookmarkCardProps) => {
       </div>
 
       {/* card footer */}
-      <div className="pt-4 border-t mt-4 flex gap-4">
+      <div className="pt-4 border-t mt-4 flex gap-4 items-center">
         <label className="flex gap-2">
           <img
             src={icon}
@@ -59,7 +60,7 @@ const BookmarkCard = ({ bookmarkItem }: BookmarkCardProps) => {
             alt=""
             width={24}
           />
-          <span>{bookmarkItem.lastVisitedAt}</span>
+          <span>{formatDate(bookmarkItem.lastVisitedAt)}</span>
         </label>
         <label className="flex gap-2">
           <img
@@ -67,7 +68,7 @@ const BookmarkCard = ({ bookmarkItem }: BookmarkCardProps) => {
             alt=""
             width={24}
           />
-          <span>{bookmarkItem.updatedAt}</span>
+          <span>{formatDate(bookmarkItem.updatedAt)}</span>
         </label>
         <button className="ml-auto">
           <img
