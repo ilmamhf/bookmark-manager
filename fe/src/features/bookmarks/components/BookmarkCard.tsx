@@ -20,7 +20,12 @@ const BookmarkCard = ({ bookmarkItem }: BookmarkCardProps) => {
 
         <div className="flex flex-col">
           <span className="font-medium text-lg">{bookmarkItem.title}</span>
-          <span>{bookmarkItem.detail}</span>
+          <a
+            href={`https://${bookmarkItem.url}`}
+            target="_blank"
+          >
+            {bookmarkItem.url}
+          </a>
         </div>
 
         <button className="bg-amber-50 border aspect-square rounded-sm flex items-center justify-center w-8 ml-auto self-start hover:bg-gray-200">
@@ -46,7 +51,7 @@ const BookmarkCard = ({ bookmarkItem }: BookmarkCardProps) => {
             alt=""
             width={24}
           />
-          <span>{bookmarkItem.seenCount}</span>
+          <span>{bookmarkItem.visitCount}</span>
         </label>
         <label className="flex gap-2">
           <img
@@ -54,7 +59,7 @@ const BookmarkCard = ({ bookmarkItem }: BookmarkCardProps) => {
             alt=""
             width={24}
           />
-          <span>{bookmarkItem.lastSeen}</span>
+          <span>{bookmarkItem.lastVisitedAt}</span>
         </label>
         <label className="flex gap-2">
           <img
@@ -62,7 +67,7 @@ const BookmarkCard = ({ bookmarkItem }: BookmarkCardProps) => {
             alt=""
             width={24}
           />
-          <span>{bookmarkItem.lastEdited}</span>
+          <span>{bookmarkItem.updatedAt}</span>
         </label>
         <button className="ml-auto">
           <img

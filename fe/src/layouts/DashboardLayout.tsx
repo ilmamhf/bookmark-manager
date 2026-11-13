@@ -4,7 +4,7 @@ import Sidebar from "./Sidebar/Sidebar";
 import {
   sampleBookmarks,
   type Bookmark,
-  type BookmarkFormData,
+  type CreateBookmarkInput,
 } from "../features/bookmarks";
 import BookmarkFormModal from "../features/bookmarks/components/BookmarkFormModal";
 
@@ -57,16 +57,17 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     setIsModalOpen(true);
   };
 
-  const handleFormSubmit = (formData: BookmarkFormData) => {
+  const handleFormSubmit = (formData: CreateBookmarkInput) => {
     if (editingBookmark) {
     } else {
       // create
       const newBookmark: Bookmark = {
         id: bookmarkList.length + 1,
         ...formData,
-        lastEdited: Date.now().toString(),
-        lastSeen: Date.now().toString(),
-        seenCount: 0,
+        createdAt: Date.now().toString(),
+        updatedAt: Date.now().toString(),
+        lastVisitedAt: Date.now().toString(),
+        visitCount: 0,
       };
       setBookmarkList((prev) => [...prev, newBookmark]);
     }

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import type { Bookmark, BookmarkFormData } from "..";
+import type { Bookmark, CreateBookmarkInput } from "..";
 import FormInput from "./FormInput";
 
 interface BookmarkFormModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (data: BookmarkFormData) => void;
+  onSubmit: (data: CreateBookmarkInput) => void;
   initialData?: Bookmark | null;
 }
 
@@ -15,9 +15,9 @@ const BookmarkFormModal = ({
   onSubmit,
   initialData,
 }: BookmarkFormModalProps) => {
-  const [formData, setFormData] = useState<BookmarkFormData>({
+  const [formData, setFormData] = useState<CreateBookmarkInput>({
     title: "",
-    detail: "",
+    url: "",
     description: "",
     tags: [],
   });
@@ -26,12 +26,12 @@ const BookmarkFormModal = ({
     if (initialData) {
       setFormData({
         title: initialData?.title,
-        detail: initialData?.detail,
+        url: initialData?.url,
         description: initialData?.description,
         tags: initialData?.tags,
       });
     } else {
-      setFormData({ title: "", detail: "", description: "", tags: [] });
+      setFormData({ title: "", url: "", description: "", tags: [] });
     }
   }, [initialData, isOpen]);
 
@@ -59,9 +59,9 @@ const BookmarkFormModal = ({
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
         />
         <FormInput
-          label="Detail"
-          fieldValue={formData.detail}
-          onChange={(e) => setFormData({ ...formData, detail: e.target.value })}
+          label="Link"
+          fieldValue={formData.url}
+          onChange={(e) => setFormData({ ...formData, url: e.target.value })}
         />
         <FormInput
           label="Description"
