@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Header from "./Header/Header";
 import Sidebar from "./Sidebar/Sidebar";
 import {
@@ -35,9 +35,22 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     return matchesSearch && matchesTags;
   });
 
-  const tagList = [
-    ...new Set(bookmarkList.flatMap((bookmark) => bookmark.tags)),
-  ];
+  const tagList = useMemo(() => {
+    const counts = bookmarkList.reduce<Record<string, number>>(
+      (acc, bookmark) => {
+        bookmark.tags.forEach((name) => {
+          acc[name] = (acc[name] ?? 0) + 1;
+        });
+        return acc;
+      },
+      {},
+    );
+
+    // output
+    return Object.entries(counts)
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }, [bookmarkList]);
 
   const handleTagChange = (tag: string) => {
     setSelectedTags((prev) =>

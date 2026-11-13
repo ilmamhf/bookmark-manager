@@ -3,7 +3,7 @@ import NavButton from "./components/NavButton";
 import TagsCheckbox from "./components/TagsCheckbox";
 
 interface SidebarProps {
-  tagList: string[];
+  tagList: { name: string; count: number }[];
   selectedTags: string[] | null;
   handleTagChange: (value: string) => void | null;
 }
@@ -37,9 +37,10 @@ const Sidebar = ({ tagList, selectedTags, handleTagChange }: SidebarProps) => {
         <label className="p-2">TAGS</label>
         {tagList.map((tag) => (
           <TagsCheckbox
-            key={tag}
-            tag={tag}
-            onTagChange={() => handleTagChange(tag)}
+            key={tag.name}
+            tag={tag.name}
+            onTagChange={() => handleTagChange(tag.name)}
+            count={tag.count}
           />
         ))}
       </div>
