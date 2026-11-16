@@ -46,7 +46,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   });
 
   const tagList = useMemo(() => {
-    const counts = bookmarkList.reduce<Record<string, number>>(
+    const counts = viewBookmarks.reduce<Record<string, number>>(
       (acc, bookmark) => {
         bookmark.tags.forEach((name) => {
           acc[name] = (acc[name] ?? 0) + 1;
@@ -60,12 +60,17 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     return Object.entries(counts)
       .map(([name, count]) => ({ name, count }))
       .sort((a, b) => a.name.localeCompare(b.name));
-  }, [bookmarkList]);
+  }, [viewBookmarks]);
 
   const handleTagChange = (tag: string) => {
     setSelectedTags((prev) =>
       prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
     );
+  };
+
+  const handleViewChange = (view: DashboardView) => {
+    setSelectedTags([]);
+    setActiveView(view);
   };
 
   const fetchBookmark = async () => {
@@ -107,7 +112,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         selectedTags={selectedTags}
         handleTagChange={handleTagChange}
         activeView={activeView}
-        setActiveView={setActiveView}
+        handleViewChange={handleViewChange}
       />
       <main className="flex flex-col bg-blue-200 flex-1">
         <Header

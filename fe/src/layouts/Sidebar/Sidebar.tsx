@@ -7,7 +7,7 @@ interface SidebarProps {
   tagList: { name: string; count: number }[];
   selectedTags: string[] | null;
   handleTagChange: (value: string) => void | null;
-  setActiveView: (value: DashboardView) => void;
+  handleViewChange: (value: DashboardView) => void;
   activeView: DashboardView;
 }
 
@@ -15,7 +15,7 @@ const Sidebar = ({
   tagList,
   selectedTags,
   handleTagChange,
-  setActiveView,
+  handleViewChange,
   activeView,
 }: SidebarProps) => {
   return (
@@ -35,14 +35,14 @@ const Sidebar = ({
         <NavButton
           icon={icon}
           text="Home"
-          onClick={() => setActiveView("Home")}
+          onClick={() => handleViewChange("Home")}
           isSelected={activeView == "Home"}
         />
 
         <NavButton
           icon={icon}
           text="Archived"
-          onClick={() => setActiveView("Archived")}
+          onClick={() => handleViewChange("Archived")}
           isSelected={activeView == "Archived"}
         />
       </div>
