@@ -1,6 +1,7 @@
 import type { Bookmark } from "..";
 import icon from "../../../assets/react.svg";
 import { formatDate } from "../../../utils/date";
+import CardKebabButton from "./CardKebabButton";
 
 interface BookmarkCardProps {
   bookmarkItem: Bookmark;
@@ -29,9 +30,7 @@ const BookmarkCard = ({ bookmarkItem }: BookmarkCardProps) => {
           </a>
         </div>
 
-        <button className="bg-amber-50 border aspect-square rounded-sm flex items-center justify-center w-8 ml-auto self-start hover:bg-gray-200">
-          <span className="">⋮</span>
-        </button>
+        <CardKebabButton />
       </div>
 
       {/* card body */}
