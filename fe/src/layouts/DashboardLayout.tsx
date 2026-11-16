@@ -15,14 +15,24 @@ interface DashboardLayoutProps {
   ) => React.ReactNode;
 }
 
+export type DashboardView = "Home" | "Archived";
+
+const VIEW_FILTERS: Record<DashboardView, (b: Bookmark) => boolean> = {
+  Home: (b) => Boolean(!b.isArchived),
+  Archived: (b) => Boolean(b.isArchived),
+};
+
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [bookmarkList, setBookmarkList] = useState<Bookmark[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [editingBookmark, setEditingBookmark] = useState<Bookmark | null>(null);
+  const [activeView, setActiveView] = useState<DashboardView>("Home");
 
-  const filteredBookmarkList = bookmarkList.filter((bookmark) => {
+  const viewBookmarks = bookmarkList.filter(VIEW_FILTERS[activeView]);
+
+  const filteredBookmarkList = viewBookmarks.filter((bookmark) => {
     const query = searchQuery.trim().toLowerCase();
 
     const matchesSearch =
@@ -96,6 +106,8 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         tagList={tagList}
         selectedTags={selectedTags}
         handleTagChange={handleTagChange}
+        activeView={activeView}
+        setActiveView={setActiveView}
       />
       <main className="flex flex-col bg-blue-200 flex-1">
         <Header

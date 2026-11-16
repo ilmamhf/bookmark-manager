@@ -4,6 +4,7 @@ export interface Bookmark {
   url: string;
   description: string;
   tags: string[];
+  isArchived: boolean;
 
   visitCount: number;
   createdAt: string;
@@ -32,7 +33,8 @@ export const sampleBookmarks: Bookmark[] = [
     visitCount: 24,
     lastVisitedAt: "2026-10-12T08:34:21.000Z",
     updatedAt: "2026-10-10T14:22:45.000Z",
-    createdAt: "2026-09-01T03:15:12.000Z"
+    createdAt: "2026-09-01T03:15:12.000Z",
+    isArchived: false
   },
   {
     id: 2,
@@ -44,7 +46,8 @@ export const sampleBookmarks: Bookmark[] = [
     visitCount: 8,
     lastVisitedAt: "2026-10-28T02:17:36.000Z",
     updatedAt: "2026-09-15T09:43:18.000Z",
-    createdAt: "2026-09-01T05:48:29.000Z"
+    createdAt: "2026-09-01T05:48:29.000Z",
+    isArchived: false
   },
   {
     id: 3,
@@ -56,7 +59,8 @@ export const sampleBookmarks: Bookmark[] = [
     visitCount: 142,
     lastVisitedAt: "2026-11-04T15:52:43.000Z",
     updatedAt: "2026-11-01T07:26:51.000Z",
-    createdAt: "2026-09-01T11:32:07.000Z"
+    createdAt: "2026-09-01T11:32:07.000Z",
+    isArchived: true
   },
   {
     id: 4,
@@ -68,7 +72,8 @@ export const sampleBookmarks: Bookmark[] = [
     visitCount: 0,
     lastVisitedAt: null,
     updatedAt: "2026-08-22T12:19:34.000Z",
-    createdAt: "2026-09-01T08:07:55.000Z"
+    createdAt: "2026-09-01T08:07:55.000Z",
+    isArchived: false
   },
   {
     id: 5,
@@ -80,7 +85,8 @@ export const sampleBookmarks: Bookmark[] = [
     visitCount: 57,
     lastVisitedAt: "2026-11-01T04:41:29.000Z",
     updatedAt: "2026-10-25T16:38:12.000Z",
-    createdAt: "2026-09-01T06:24:38.000Z"
+    createdAt: "2026-09-01T06:24:38.000Z",
+    isArchived: true
   },
   {
     id: 6,
@@ -92,6 +98,7 @@ export const sampleBookmarks: Bookmark[] = [
     visitCount: 3,
     lastVisitedAt: "2026-09-18T13:56:08.000Z",
     updatedAt: "2026-09-10T02:47:31.000Z",
-    createdAt: "2026-09-01T14:53:46.000Z"
+    createdAt: "2026-09-01T14:53:46.000Z",
+    isArchived: false
   }
 ]

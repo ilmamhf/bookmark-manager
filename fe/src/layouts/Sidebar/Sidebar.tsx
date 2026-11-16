@@ -1,4 +1,5 @@
 import icon from "../../assets/react.svg";
+import type { DashboardView } from "../DashboardLayout";
 import NavButton from "./components/NavButton";
 import TagsCheckbox from "./components/TagsCheckbox";
 
@@ -6,9 +7,17 @@ interface SidebarProps {
   tagList: { name: string; count: number }[];
   selectedTags: string[] | null;
   handleTagChange: (value: string) => void | null;
+  setActiveView: (value: DashboardView) => void;
+  activeView: DashboardView;
 }
 
-const Sidebar = ({ tagList, selectedTags, handleTagChange }: SidebarProps) => {
+const Sidebar = ({
+  tagList,
+  selectedTags,
+  handleTagChange,
+  setActiveView,
+  activeView,
+}: SidebarProps) => {
   return (
     <aside className="w-80 bg-amber-50 p-4">
       <div className="flex items-center py-4 pb-8">
@@ -26,11 +35,15 @@ const Sidebar = ({ tagList, selectedTags, handleTagChange }: SidebarProps) => {
         <NavButton
           icon={icon}
           text="Home"
+          onClick={() => setActiveView("Home")}
+          isSelected={activeView == "Home"}
         />
 
         <NavButton
           icon={icon}
           text="Archived"
+          onClick={() => setActiveView("Archived")}
+          isSelected={activeView == "Archived"}
         />
       </div>
       <div className="py-4">
