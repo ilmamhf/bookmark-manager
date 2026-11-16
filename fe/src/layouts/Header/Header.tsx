@@ -20,7 +20,7 @@ const Header = ({
 
       <div className="flex items-center ml-auto gap-4 text-white ">
         <button
-          className="flex bg-[#004844] rounded-xl p-4 items-center justify-center hover:bg-green-700"
+          className="flex bg-[#004844] rounded-xl p-4 items-center justify-center hover:bg-[#003835]"
           onClick={onOpenCreateModal}
         >
           <span>+ Add Bookmark</span>
