@@ -2,6 +2,7 @@ import type { Bookmark } from "..";
 import icon from "../../../assets/react.svg";
 import { formatDate } from "../../../utils/date";
 import CardKebabButton from "./CardKebabButton";
+import { Eye, Clock, Calendar, Pin } from "lucide-react";
 
 interface BookmarkCardProps {
   bookmarkItem: Bookmark;
@@ -46,36 +47,18 @@ const BookmarkCard = ({ bookmarkItem }: BookmarkCardProps) => {
       {/* card footer */}
       <div className="pt-4 border-t-[#e8f1f0] border-t-2 mt-4 flex gap-4 items-center">
         <label className="flex gap-2">
-          <img
-            src={icon}
-            alt=""
-            width={24}
-          />
+          <Eye className="h-6 w-6 text-[#7b7d7c]" />
           <span>{bookmarkItem.visitCount}</span>
         </label>
         <label className="flex gap-2">
-          <img
-            src={icon}
-            alt=""
-            width={24}
-          />
+          <Clock className="h-6 w-6 text-[#7b7d7c]" />
           <span>{formatDate(bookmarkItem.lastVisitedAt)}</span>
         </label>
         <label className="flex gap-2">
-          <img
-            src={icon}
-            alt=""
-            width={24}
-          />
+          <Calendar className="h-6 w-6 text-[#7b7d7c]" />
           <span>{formatDate(bookmarkItem.updatedAt)}</span>
         </label>
-        <button className="ml-auto">
-          <img
-            src={icon}
-            alt=""
-            width={24}
-          />
-        </button>
+        {/* <Pin className="ml-auto h-6 w-6 text-[#7b7d7c]" /> */}
       </div>
     </div>
   );

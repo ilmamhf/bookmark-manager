@@ -1,5 +1,5 @@
-import icon from "../../assets/react.svg";
 import SearchBar from "./components/SearchBar";
+import { User2 } from "lucide-react";
 
 interface HeaderProps {
   searchQuery: string;
@@ -26,12 +26,13 @@ const Header = ({
           <span>+ Add Bookmark</span>
         </button>
 
-        <div className="flex border rounded-full aspect-square items-center justify-center w-12 h-12">
-          <img
+        <div className="flex border-2 border-[#004844] rounded-full aspect-square items-center justify-center w-13 h-13 bg-gray-400">
+          {/* <img
             src={icon}
             alt=""
             width={40}
-          />
+          /> */}
+          <User2 className="w-12 h-12 text-black" />
         </div>
       </div>
     </div>

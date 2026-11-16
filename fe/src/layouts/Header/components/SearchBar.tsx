@@ -1,4 +1,4 @@
-import icon from "../../../assets/react.svg";
+import { Search } from "lucide-react";
 
 interface SearchBarProps {
   searchQuery: string;
@@ -8,12 +8,7 @@ interface SearchBarProps {
 const SearchBar = ({ searchQuery, setSearchQuery }: SearchBarProps) => {
   return (
     <div className="border-[#e8f1f0] border-2 flex rounded-lg py-2">
-      <img
-        src={icon}
-        alt=""
-        width={24}
-        className="m-2"
-      />
+      <Search className="m-2 text-[#7b7d7c]" />
       <input
         type="text"
         name=""

@@ -2,6 +2,7 @@ import icon from "../../assets/react.svg";
 import type { DashboardView } from "../DashboardLayout";
 import NavButton from "./components/NavButton";
 import TagsCheckbox from "./components/TagsCheckbox";
+import { Bookmark, Home, Archive } from "lucide-react";
 
 interface SidebarProps {
   tagList: { name: string; count: number }[];
@@ -20,25 +21,21 @@ const Sidebar = ({
     <aside className="w-80 bg-[#ffffff] p-4 border-r-[#f3f5f4] border-r-2">
       <div className="flex items-center py-4 pb-8">
         <div className="p-2 bg-[#004844] rounded-xl">
-          <img
-            src={icon}
-            alt=""
-            width={24}
-          />
+          <Bookmark className="h-6 w-6 text-[#ffffff]" />
         </div>
         <span className="text-xl px-2">Bookmark Manager</span>
       </div>
 
       <div>
         <NavButton
-          icon={icon}
+          icon={Home}
           text="Home"
           onClick={() => handleViewChange("Home")}
           isSelected={activeView == "Home"}
         />
 
         <NavButton
-          icon={icon}
+          icon={Archive}
           text="Archived"
           onClick={() => handleViewChange("Archived")}
           isSelected={activeView == "Archived"}

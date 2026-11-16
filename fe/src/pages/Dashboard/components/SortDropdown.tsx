@@ -1,6 +1,6 @@
 import { useState } from "react";
-import icon from "../../../assets/react.svg";
 import type { SortOption } from "../../../features/bookmarks";
+import { ArrowDownUp } from "lucide-react";
 
 const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: "newest", label: "Recently Updated" },
@@ -27,24 +27,25 @@ const SortDropdown = ({ buttonValue, onChange }: SortDropdownProps) => {
   return (
     <div className="relative">
       <button
-        className="p-2 gap-2 bg-[#ffffff] flex items-center justify-center hover:bg-amber-100 rounded-md"
+        className="p-2 gap-2 bg-[#ffffff] flex items-center justify-center hover:bg-[#cfe8e5] rounded-md"
         onClick={() => setIsOpen((prev) => !prev)}
       >
-        <img
+        {/* <img
           src={icon}
           alt=""
           width={24}
-        />
+        /> */}
+        <ArrowDownUp className="w-6 h-6" />
         <span>Sort by</span>
       </button>
 
       {isOpen && (
-        <div className="absolute z-20 w-48 right-0 border p-2 rounded-md bg-amber-50">
+        <div className="absolute z-20 w-48 right-0 drop-shadow-md p-2 rounded-md bg-[#ffffff]">
           {SORT_OPTIONS.map((option) => {
             const isSelected = option.value === buttonValue;
             return (
               <button
-                className={`flex w-full rounded-sm px-2 items-center hover:bg-amber-200 ${isSelected ? "bg-amber-300" : ""}`}
+                className={`flex w-full rounded-sm px-2 items-center hover:bg-[#cfe8e5] ${isSelected ? "bg-[#e8f1f0]" : ""}`}
                 key={option.value}
                 onClick={() => {
                   handleSelect(option.value);
