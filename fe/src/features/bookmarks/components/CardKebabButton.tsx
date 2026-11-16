@@ -8,7 +8,7 @@ const CardKebabButton = () => {
     <div className="relative ml-auto">
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className="bg-amber-50 border aspect-square rounded-sm flex items-center justify-center w-8 ml-auto self-start hover:bg-gray-200"
+        className="bg-[#ffffff] border-[#e8f1f0] border-2 aspect-square rounded-sm flex items-center justify-center w-8 ml-auto self-start hover:bg-[#e8f1f0]"
       >
         <span className="">⋮</span>
       </button>

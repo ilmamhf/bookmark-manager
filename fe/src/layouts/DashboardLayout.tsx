@@ -109,12 +109,11 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     <div className="min-h-screen flex">
       <Sidebar
         tagList={tagList}
-        selectedTags={selectedTags}
         handleTagChange={handleTagChange}
         activeView={activeView}
         handleViewChange={handleViewChange}
       />
-      <main className="flex flex-col bg-blue-200 flex-1">
+      <main className="flex flex-col bg-[#e8f1f0] flex-1">
         <Header
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}

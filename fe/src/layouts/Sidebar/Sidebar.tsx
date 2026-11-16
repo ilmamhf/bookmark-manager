@@ -5,7 +5,6 @@ import TagsCheckbox from "./components/TagsCheckbox";
 
 interface SidebarProps {
   tagList: { name: string; count: number }[];
-  selectedTags: string[] | null;
   handleTagChange: (value: string) => void | null;
   handleViewChange: (value: DashboardView) => void;
   activeView: DashboardView;
@@ -13,15 +12,14 @@ interface SidebarProps {
 
 const Sidebar = ({
   tagList,
-  selectedTags,
   handleTagChange,
   handleViewChange,
   activeView,
 }: SidebarProps) => {
   return (
-    <aside className="w-80 bg-amber-50 p-4">
+    <aside className="w-80 bg-[#ffffff] p-4 border-r-[#f3f5f4] border-r-2">
       <div className="flex items-center py-4 pb-8">
-        <div className="p-2 bg-green-700 rounded-xl">
+        <div className="p-2 bg-[#004844] rounded-xl">
           <img
             src={icon}
             alt=""

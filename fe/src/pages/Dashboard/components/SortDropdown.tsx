@@ -27,7 +27,7 @@ const SortDropdown = ({ buttonValue, onChange }: SortDropdownProps) => {
   return (
     <div className="relative">
       <button
-        className="p-2 gap-2 bg-yellow-50 flex items-center justify-center hover:bg-amber-100 rounded-md"
+        className="p-2 gap-2 bg-[#ffffff] flex items-center justify-center hover:bg-amber-100 rounded-md"
         onClick={() => setIsOpen((prev) => !prev)}
       >
         <img

@@ -7,7 +7,7 @@ interface SearchBarProps {
 
 const SearchBar = ({ searchQuery, setSearchQuery }: SearchBarProps) => {
   return (
-    <div className="border flex rounded-lg py-2">
+    <div className="border-[#e8f1f0] border-2 flex rounded-lg py-2">
       <img
         src={icon}
         alt=""
@@ -21,6 +21,7 @@ const SearchBar = ({ searchQuery, setSearchQuery }: SearchBarProps) => {
         placeholder="Search by title..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
+        className="focus: outline-0"
       />
     </div>
   );

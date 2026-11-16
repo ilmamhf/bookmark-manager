@@ -12,15 +12,15 @@ const Header = ({
   onOpenCreateModal,
 }: HeaderProps) => {
   return (
-    <div className="bg-amber-200 w-full h-24 flex py-4 px-8 items-center">
+    <div className="bg-[#ffffff] w-full h-24 flex py-4 px-8 items-center">
       <SearchBar
         searchQuery={searchQuery}
         setSearchQuery={onSearchChange}
       />
 
-      <div className="flex items-center ml-auto gap-4">
+      <div className="flex items-center ml-auto gap-4 text-white ">
         <button
-          className="flex bg-green-600 rounded-xl p-4 items-center justify-center hover:bg-green-700"
+          className="flex bg-[#004844] rounded-xl p-4 items-center justify-center hover:bg-green-700"
           onClick={onOpenCreateModal}
         >
           <span>+ Add Bookmark</span>
