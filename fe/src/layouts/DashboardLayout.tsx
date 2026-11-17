@@ -9,6 +9,7 @@ interface DashboardLayoutProps {
   children: (
     bookmarkList: Bookmark[],
     filteredBookmarkList: Bookmark[],
+    handleOpenEditModal: (b: Bookmark) => void,
   ) => React.ReactNode;
 }
 
@@ -89,8 +90,15 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     setIsModalOpen(true);
   };
 
-  const handleFormSubmit = async (formData: CreateBookmarkInput) => {
+  const handleOpenEditModal = (b: Bookmark) => {
+    setEditingBookmark(b);
+    console.log("handle open edit modal", b);
+    setIsModalOpen(true);
+  };
+
+  const handleFormSubmit = async (formData: CreateBookmarkInput | Bookmark) => {
     if (editingBookmark) {
+      handleEdit(formData as Bookmark);
     } else {
       // create
       try {
@@ -112,6 +120,41 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     }
   };
 
+  const handleFavorite = async (id: number) => {
+    try {
+      console.log("Favorited");
+      const response = await api.post(`bookmark/${id}`);
+    } catch (e) {
+      console.error("Fail Favoriting:", e);
+    }
+  };
+
+  const handleEdit = async (editedBookmark: Bookmark) => {
+    try {
+      const now = new Date().toISOString();
+      const editedBookmarkPayload: Bookmark = {
+        ...editedBookmark,
+        updatedAt: now,
+      };
+
+      const response = await api.put(
+        `/bookmarks/${editedBookmark.id}`,
+        editedBookmarkPayload,
+      );
+      const newEditedBookmark = response.data;
+      setBookmarkList((prev) =>
+        prev.map((b) => (b.id === editedBookmark.id ? newEditedBookmark : b)),
+      );
+      console.log("Edited");
+    } catch (er) {
+      console.error("Fail Editing Bookmark:", er);
+    }
+  };
+
+  const handleArchive = () => {
+    console.log("Archived");
+  };
+
   useEffect(() => {
     fetchBookmark();
   }, []);
@@ -130,7 +173,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           onSearchChange={setSearchQuery}
           onOpenCreateModal={handleOpenCreateModal}
         />
-        {children(bookmarkList, filteredBookmarkList)}
+        {children(bookmarkList, filteredBookmarkList, handleOpenEditModal)}
       </main>
 
       <BookmarkFormModal

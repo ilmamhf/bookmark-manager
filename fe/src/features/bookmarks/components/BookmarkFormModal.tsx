@@ -15,7 +15,7 @@ const BookmarkFormModal = ({
   onSubmit,
   initialData,
 }: BookmarkFormModalProps) => {
-  const [formData, setFormData] = useState<CreateBookmarkInput>({
+  const [formData, setFormData] = useState<CreateBookmarkInput | Bookmark>({
     title: "",
     url: "",
     description: "",
@@ -26,11 +26,16 @@ const BookmarkFormModal = ({
   useEffect(() => {
     if (initialData) {
       setFormData({
+        id: initialData?.id,
         title: initialData?.title,
         url: initialData?.url,
         description: initialData?.description,
         tags: initialData?.tags,
         isArchived: initialData?.isArchived,
+        updatedAt: initialData?.updatedAt,
+        visitCount: initialData?.visitCount,
+        lastVisitedAt: initialData?.lastVisitedAt,
+        createdAt: initialData?.createdAt,
       });
     } else {
       setFormData({
@@ -47,6 +52,7 @@ const BookmarkFormModal = ({
 
   const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
+    // console.log("handle submit", formData);
     onSubmit(formData);
     onClose();
   };

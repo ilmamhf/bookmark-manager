@@ -6,11 +6,13 @@ import SortDropdown from "./components/SortDropdown";
 interface DashboardPageProps {
   bookmarkList: Bookmark[];
   filteredBookmarkList: Bookmark[];
+  handleOpenEditModal: (b: Bookmark) => void;
 }
 
 const DashboardPage = ({
   bookmarkList,
   filteredBookmarkList,
+  handleOpenEditModal,
 }: DashboardPageProps) => {
   const [sortBy, setSortBy] = useState<SortOption>("newest");
 
@@ -59,7 +61,10 @@ const DashboardPage = ({
         />
       </div>
 
-      <BookmarkList bookmarkList={sortedBookmarks} />
+      <BookmarkList
+        bookmarkList={sortedBookmarks}
+        handleOpenEditModal={handleOpenEditModal}
+      />
     </div>
   );
 };

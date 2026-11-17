@@ -5,10 +5,11 @@ import DashboardPage from "./pages/Dashboard/DashboardPage";
 function App() {
   return (
     <DashboardLayout>
-      {(bookmarkList, filteredBookmarkList) => (
+      {(bookmarkList, filteredBookmarkList, handleOpenEditModal) => (
         <DashboardPage
           bookmarkList={bookmarkList}
           filteredBookmarkList={filteredBookmarkList}
+          handleOpenEditModal={handleOpenEditModal}
         />
       )}
     </DashboardLayout>

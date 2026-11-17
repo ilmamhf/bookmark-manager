@@ -6,9 +6,17 @@ import { Eye, Clock, Calendar, Pin } from "lucide-react";
 
 interface BookmarkCardProps {
   bookmarkItem: Bookmark;
+  handleOpenEditModal: (b: Bookmark) => void;
 }
 
-const BookmarkCard = ({ bookmarkItem }: BookmarkCardProps) => {
+const BookmarkCard = ({
+  bookmarkItem,
+  handleOpenEditModal,
+}: BookmarkCardProps) => {
+  const onEditBookmark = (b: Bookmark) => {
+    console.log("hello from on edit bookmark", b);
+    handleOpenEditModal(b);
+  };
   return (
     <div className="bg-[#ffffff] p-4 rounded-lg flex flex-col justify-center">
       {/* card header */}
@@ -31,7 +39,9 @@ const BookmarkCard = ({ bookmarkItem }: BookmarkCardProps) => {
           </a>
         </div>
 
-        <CardKebabButton />
+        <CardKebabButton
+          handleOpenEditModal={() => onEditBookmark(bookmarkItem)}
+        />
       </div>
 
       {/* card body */}
