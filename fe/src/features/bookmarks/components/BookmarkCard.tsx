@@ -39,7 +39,12 @@ const BookmarkCard = ({ bookmarkItem }: BookmarkCardProps) => {
         <p className="py-2">{bookmarkItem.description}</p>
         <div className="flex gap-2">
           {bookmarkItem.tags.map((tag) => (
-            <span className="bg-[#e8f1f0] p-1 rounded-md">{tag}</span>
+            <span
+              key={tag}
+              className="bg-[#e8f1f0] p-1 rounded-md"
+            >
+              {tag}
+            </span>
           ))}
         </div>
       </div>

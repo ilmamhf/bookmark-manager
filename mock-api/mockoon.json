@@ -1,0 +1,142 @@
+{
+  "uuid": "b9343a43-3dff-475a-8042-4669efec9576",
+  "lastMigration": 33,
+  "name": "Mockoon",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3001,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "b6e1e1d4-67d7-4b71-9d2e-92da602e3a0d",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "",
+      "responses": [
+        {
+          "uuid": "0b740707-b066-47e0-abd1-9bbdf915e299",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "36ef64cd-2752-4700-8230-59ff25a42e4d",
+      "type": "crud",
+      "documentation": "",
+      "method": "",
+      "endpoint": "bookmarks",
+      "responses": [
+        {
+          "uuid": "e42e425e-d482-4b68-9761-f788fcd38f99",
+          "body": "{}",
+          "latency": 2000,
+          "statusCode": 200,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "DATABUCKET",
+          "filePath": "",
+          "databucketID": "ytfd",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "b6e1e1d4-67d7-4b71-9d2e-92da602e3a0d"
+    },
+    {
+      "type": "route",
+      "uuid": "36ef64cd-2752-4700-8230-59ff25a42e4d"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [
+    {
+      "uuid": "48bcbb66-c5e9-4876-b36f-43c3364273a7",
+      "id": "ytfd",
+      "name": "bookmarks",
+      "documentation": "",
+      "value": "\n[\n  {\n    \"id\": 1,\n    \"title\": \"Claude\",\n    \"url\": \"claude.ai\",\n    \"description\": \"An AI assistant built by Anthropic designed for deep writing analysis, complex coding, and document processing.\",\n    \"tags\": [\"Tools\", \"AI\", \"Productivity\"],\n    \"visitCount\": 24,\n    \"lastVisitedAt\": \"2026-10-12T08:34:21.000Z\",\n    \"updatedAt\": \"2026-10-10T14:22:45.000Z\",\n    \"createdAt\": \"2026-09-01T03:15:12.000Z\",\n    \"isArchived\": false\n  },\n  {\n    \"id\": 2,\n    \"title\": \"Tailwind CSS\",\n    \"url\": \"tailwindcss.com\",\n    \"description\": \"A utility-first CSS framework packed with classes to build modern web user interfaces rapidly directly in HTML.\",\n    \"tags\": [\"CSS\", \"Frontend\", \"Design\"],\n    \"visitCount\": 8,\n    \"lastVisitedAt\": \"2026-10-28T02:17:36.000Z\",\n    \"updatedAt\": \"2026-09-15T09:43:18.000Z\",\n    \"createdAt\": \"2026-09-01T05:48:29.000Z\",\n    \"isArchived\": false\n  },\n  {\n    \"id\": 3,\n    \"title\": \"GitHub\",\n    \"url\": \"github.com\",\n    \"description\": \"A developer platform for hosting repositories, managing code versions, and collaborating on software projects.\",\n    \"tags\": [\"DevOps\", \"Code\", \"Tools\"],\n    \"visitCount\": 142,\n    \"lastVisitedAt\": \"2026-11-04T15:52:43.000Z\",\n    \"updatedAt\": \"2026-11-01T07:26:51.000Z\",\n    \"createdAt\": \"2026-09-01T11:32:07.000Z\",\n    \"isArchived\": true\n  },\n  {\n    \"id\": 4,\n    \"title\": \"Figma\",\n    \"url\": \"figma.com\",\n    \"description\": \"A collaborative browser-based UI/UX design tool used for creating mockups, design systems, and interactive prototypes.\",\n    \"tags\": [\"Design\", \"UI/UX\", \"Tools\"],\n    \"visitCount\": 0,\n    \"lastVisitedAt\": null,\n    \"updatedAt\": \"2026-08-22T12:19:34.000Z\",\n    \"createdAt\": \"2026-09-01T08:07:55.000Z\",\n    \"isArchived\": false\n  },\n  {\n    \"id\": 5,\n    \"title\": \"React\",\n    \"url\": \"react.dev\",\n    \"description\": \"Official documentation for the popular JavaScript library used to build component-driven user interfaces.\",\n    \"tags\": [\"Frontend\", \"JavaScript\", \"Learning\"],\n    \"visitCount\": 57,\n    \"lastVisitedAt\": \"2026-11-01T04:41:29.000Z\",\n    \"updatedAt\": \"2026-10-25T16:38:12.000Z\",\n    \"createdAt\": \"2026-09-01T06:24:38.000Z\",\n    \"isArchived\": true\n  },\n  {\n    \"id\": 6,\n    \"title\": \"Excalidraw\",\n    \"url\": \"excalidraw.com\",\n    \"description\": \"A virtual hand-drawn style whiteboard for drafting architecture diagrams, wireframes, and quick sketches collaboratively.\",\n    \"tags\": [\"Tools\", \"Diagram\", \"Design\"],\n    \"visitCount\": 3,\n    \"lastVisitedAt\": \"2026-09-18T13:56:08.000Z\",\n    \"updatedAt\": \"2026-09-10T02:47:31.000Z\",\n    \"createdAt\": \"2026-09-01T14:53:46.000Z\",\n    \"isArchived\": false\n  }\n]"
+    }
+  ],
+  "callbacks": []
+}

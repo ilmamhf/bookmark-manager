@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 
-const buttons = [{ name: "Favorite" }, { name: "Archive" }];
 const CardKebabButton = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -25,6 +24,21 @@ const CardKebabButton = () => {
     };
   }, [isOpen]);
 
+  const handleFavorite = () => {
+    console.log("Favorited");
+    setIsOpen(false);
+  };
+
+  const handleEdit = () => {
+    console.log("Editing");
+    setIsOpen(false);
+  };
+
+  const handleArchive = () => {
+    console.log("Archived");
+    setIsOpen(false);
+  };
+
   return (
     <div
       ref={dropdownRef}
@@ -42,16 +56,30 @@ const CardKebabButton = () => {
 
       {isOpen && (
         <div className="absolute z-20 drop-shadow-sm p-2 rounded-md bg-[#ffffff] right-0">
-          {buttons.map((button) => (
-            <button
-              key={button.name}
-              type="button"
-              onClick={() => setIsOpen(false)}
-              className="flex w-full rounded-sm px-2 items-center hover:bg-[#cfe8e5]"
-            >
-              <span>{button.name}</span>
-            </button>
-          ))}
+          <button
+            key="Favorite"
+            type="button"
+            onClick={() => handleFavorite()}
+            className="flex w-full rounded-sm px-2 items-center hover:bg-[#cfe8e5]"
+          >
+            <span>Favorite</span>
+          </button>
+          <button
+            key="Edit"
+            type="button"
+            onClick={() => handleEdit()}
+            className="flex w-full rounded-sm px-2 items-center hover:bg-[#cfe8e5]"
+          >
+            <span>Edit</span>
+          </button>
+          <button
+            key="Archive"
+            type="button"
+            onClick={() => handleArchive()}
+            className="flex w-full rounded-sm px-2 items-center hover:bg-[#cfe8e5]"
+          >
+            <span>Archive</span>
+          </button>
         </div>
       )}
     </div>

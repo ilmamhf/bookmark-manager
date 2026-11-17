@@ -1,12 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import Header from "./Header/Header";
 import Sidebar from "./Sidebar/Sidebar";
-import {
-  sampleBookmarks,
-  type Bookmark,
-  type CreateBookmarkInput,
-} from "../features/bookmarks";
+import { type Bookmark, type CreateBookmarkInput } from "../features/bookmarks";
 import BookmarkFormModal from "../features/bookmarks/components/BookmarkFormModal";
+import api from "../api/axios";
 
 interface DashboardLayoutProps {
   children: (
@@ -30,7 +27,9 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const [editingBookmark, setEditingBookmark] = useState<Bookmark | null>(null);
   const [activeView, setActiveView] = useState<DashboardView>("Home");
 
-  const viewBookmarks = bookmarkList.filter(VIEW_FILTERS[activeView]);
+  const viewBookmarks = useMemo(() => {
+    return bookmarkList.filter(VIEW_FILTERS[activeView]);
+  }, [bookmarkList]);
 
   const filteredBookmarkList = viewBookmarks.filter((bookmark) => {
     const query = searchQuery.trim().toLowerCase();
@@ -75,9 +74,14 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
 
   const fetchBookmark = async () => {
     try {
-      const data = sampleBookmarks;
+      const response = await api.get("/bookmarks");
+      console.log(response);
+      const data = response.data;
+      console.log(data);
       setBookmarkList(data);
-    } catch (er) {}
+    } catch (er) {
+      console.error("Fail getting bookmarks:", er);
+    }
   };
 
   const handleOpenCreateModal = () => {
@@ -85,19 +89,26 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     setIsModalOpen(true);
   };
 
-  const handleFormSubmit = (formData: CreateBookmarkInput) => {
+  const handleFormSubmit = async (formData: CreateBookmarkInput) => {
     if (editingBookmark) {
     } else {
       // create
-      const newBookmark: Bookmark = {
-        id: bookmarkList.length + 1,
-        ...formData,
-        createdAt: Date.now().toString(),
-        updatedAt: Date.now().toString(),
-        lastVisitedAt: Date.now().toString(),
-        visitCount: 0,
-      };
-      setBookmarkList((prev) => [...prev, newBookmark]);
+      try {
+        const now = new Date().toISOString();
+        const newBookmark: Bookmark = {
+          id: bookmarkList.length + 1,
+          ...formData,
+          createdAt: now,
+          updatedAt: now,
+          lastVisitedAt: now,
+          visitCount: 0,
+        };
+
+        const response = await api.post("/bookmarks", newBookmark);
+        setBookmarkList((prev) => [...prev, newBookmark]);
+      } catch (er) {
+        console.error("Fail adding bookmark:", er);
+      }
     }
   };
 

@@ -20,6 +20,7 @@ const BookmarkFormModal = ({
     url: "",
     description: "",
     tags: [],
+    isArchived: false,
   });
 
   useEffect(() => {
@@ -29,9 +30,16 @@ const BookmarkFormModal = ({
         url: initialData?.url,
         description: initialData?.description,
         tags: initialData?.tags,
+        isArchived: initialData?.isArchived,
       });
     } else {
-      setFormData({ title: "", url: "", description: "", tags: [] });
+      setFormData({
+        title: "",
+        url: "",
+        description: "",
+        tags: [],
+        isArchived: false,
+      });
     }
   }, [initialData, isOpen]);
 
@@ -50,7 +58,7 @@ const BookmarkFormModal = ({
     >
       <form
         onSubmit={handleSubmit}
-        className="bg-amber-50 p-6 flex flex-col"
+        className="bg-[#ffffff] rounded-xl p-6 flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         <FormInput
@@ -69,18 +77,19 @@ const BookmarkFormModal = ({
           onChange={(e) =>
             setFormData({ ...formData, description: e.target.value })
           }
+          isLong={true}
         />
 
         <button
           type="submit"
-          className="bg-green-400 p-2 mt-4 w-30 self-center"
+          className="p-2 mt-4 w-30  self-center rounded-md bg-[#004844] text-[#ffffff] hover:bg-[#003835]"
         >
           Submit
         </button>
         <button
           onClick={onClose}
           type="button"
-          className="bg-red-400 p-2 mt-4 w-30 self-center"
+          className="p-2 mt-4 w-30 self-center rounded-md bg-[#ffffff] border-[#e8f1f0] border-2 hover:bg-[#e8f1f0]"
         >
           Cancel
         </button>
