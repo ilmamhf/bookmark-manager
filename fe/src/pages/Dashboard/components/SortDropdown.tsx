@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { SortOption } from "../../../features/bookmarks";
 import { ArrowDownUp } from "lucide-react";
 
@@ -19,22 +19,39 @@ interface SortDropdownProps {
 const SortDropdown = ({ buttonValue, onChange }: SortDropdownProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
   const handleSelect = (option: SortOption) => {
     onChange(option);
     setIsOpen(false);
   };
 
   return (
-    <div className="relative">
+    <div
+      className="relative"
+      ref={dropdownRef}
+    >
       <button
         className="p-2 gap-2 bg-[#ffffff] flex items-center justify-center hover:bg-[#cfe8e5] rounded-md"
         onClick={() => setIsOpen((prev) => !prev)}
       >
-        {/* <img
-          src={icon}
-          alt=""
-          width={24}
-        /> */}
         <ArrowDownUp className="w-6 h-6" />
         <span>Sort by</span>
       </button>
