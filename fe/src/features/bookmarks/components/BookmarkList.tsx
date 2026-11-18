@@ -5,12 +5,14 @@ interface BookmarkListProps {
   bookmarkList: Bookmark[] | null;
   handleOpenEditModal: (b: Bookmark) => void;
   handleTogglePin: (b: Bookmark) => void;
+  handleToggleArchive: (b: Bookmark) => void;
 }
 
 const BookmarkList = ({
   bookmarkList,
   handleOpenEditModal,
   handleTogglePin,
+  handleToggleArchive,
 }: BookmarkListProps) => {
   return (
     <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 ">
@@ -20,6 +22,7 @@ const BookmarkList = ({
           bookmarkItem={bookmark}
           handleOpenEditModal={handleOpenEditModal}
           handleTogglePin={handleTogglePin}
+          handleToggleArchive={handleToggleArchive}
         />
       ))}
     </div>

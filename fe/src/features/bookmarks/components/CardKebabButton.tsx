@@ -4,12 +4,16 @@ interface CardKebabButtonProps {
   handleOpenEditModal: () => void;
   isPinned: boolean;
   handleTogglePin: () => void;
+  isArchived: boolean;
+  handleToggleArchive: () => void;
 }
 
 const CardKebabButton = ({
   handleOpenEditModal,
   isPinned,
   handleTogglePin,
+  isArchived,
+  handleToggleArchive,
 }: CardKebabButtonProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -40,7 +44,8 @@ const CardKebabButton = ({
   };
 
   const handleArchive = () => {
-    console.log("Archived");
+    handleToggleArchive();
+    setIsOpen(false);
   };
 
   return (
@@ -79,10 +84,10 @@ const CardKebabButton = ({
           <button
             key="Archive"
             type="button"
-            onClick={() => handleArchive()}
+            onClick={handleArchive}
             className="flex w-full rounded-sm px-2 items-center hover:bg-[#cfe8e5]"
           >
-            <span>Archive</span>
+            <span>{isArchived ? "Unarchive" : "Archive"}</span>
           </button>
         </div>
       )}

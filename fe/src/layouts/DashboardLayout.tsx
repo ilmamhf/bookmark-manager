@@ -11,6 +11,7 @@ interface DashboardLayoutProps {
     filteredBookmarkList: Bookmark[],
     handleOpenEditModal: (b: Bookmark) => void,
     handleTogglePin: (b: Bookmark) => void,
+    handleToggleArchive: (b: Bookmark) => void,
   ) => React.ReactNode;
 }
 
@@ -142,6 +143,28 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     }
   };
 
+  const handleToggleArchive = async (b: Bookmark) => {
+    try {
+      const archivePayload: Bookmark = {
+        ...b,
+        isArchived: !b.isArchived,
+      };
+
+      const response = await api.put(
+        `/bookmarks/${archivePayload.id}`,
+        archivePayload,
+      );
+      const newArchivedBookmark = response.data;
+      setBookmarkList((prev) =>
+        prev.map((item) =>
+          item.id === archivePayload.id ? newArchivedBookmark : item,
+        ),
+      );
+    } catch (er) {
+      console.error("Fail toggling archive:", er);
+    }
+  };
+
   const handleEdit = async (editedBookmark: Bookmark) => {
     try {
       const now = new Date().toISOString();
@@ -187,6 +210,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           filteredBookmarkList,
           handleOpenEditModal,
           handleTogglePin,
+          handleToggleArchive,
         )}
       </main>
 

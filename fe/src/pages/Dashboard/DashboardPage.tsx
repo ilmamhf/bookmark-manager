@@ -8,6 +8,7 @@ interface DashboardPageProps {
   filteredBookmarkList: Bookmark[];
   handleOpenEditModal: (b: Bookmark) => void;
   handleTogglePin: (b: Bookmark) => void;
+  handleToggleArchive: (b: Bookmark) => void;
 }
 
 const DashboardPage = ({
@@ -15,6 +16,7 @@ const DashboardPage = ({
   filteredBookmarkList,
   handleOpenEditModal,
   handleTogglePin,
+  handleToggleArchive,
 }: DashboardPageProps) => {
   const [sortBy, setSortBy] = useState<SortOption>("newest");
 
@@ -70,6 +72,7 @@ const DashboardPage = ({
         bookmarkList={sortedBookmarks}
         handleOpenEditModal={handleOpenEditModal}
         handleTogglePin={handleTogglePin}
+        handleToggleArchive={handleToggleArchive}
       />
     </div>
   );
