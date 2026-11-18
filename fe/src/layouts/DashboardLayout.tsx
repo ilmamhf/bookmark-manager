@@ -28,9 +28,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const [editingBookmark, setEditingBookmark] = useState<Bookmark | null>(null);
   const [activeView, setActiveView] = useState<DashboardView>("Home");
 
-  const viewBookmarks = useMemo(() => {
-    return bookmarkList.filter(VIEW_FILTERS[activeView]);
-  }, [bookmarkList]);
+  const viewBookmarks = bookmarkList.filter(VIEW_FILTERS[activeView]);
 
   const filteredBookmarkList = viewBookmarks.filter((bookmark) => {
     const query = searchQuery.trim().toLowerCase();
