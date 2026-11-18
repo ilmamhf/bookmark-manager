@@ -1,4 +1,3 @@
-import icon from "../../assets/react.svg";
 import type { DashboardView } from "../DashboardLayout";
 import NavButton from "./components/NavButton";
 import TagsCheckbox from "./components/TagsCheckbox";

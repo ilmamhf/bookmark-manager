@@ -10,6 +10,7 @@ interface DashboardLayoutProps {
     bookmarkList: Bookmark[],
     filteredBookmarkList: Bookmark[],
     handleOpenEditModal: (b: Bookmark) => void,
+    handleTogglePin: (b: Bookmark) => void,
   ) => React.ReactNode;
 }
 
@@ -104,13 +105,14 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         const newBookmark: Bookmark = {
           id: bookmarkList.length + 1,
           ...formData,
+          isPinned: false,
           createdAt: now,
           updatedAt: now,
           lastVisitedAt: now,
           visitCount: 0,
         };
 
-        const response = await api.post("/bookmarks", newBookmark);
+        await api.post("/bookmarks", newBookmark);
         setBookmarkList((prev) => [...prev, newBookmark]);
       } catch (er) {
         console.error("Fail adding bookmark:", er);
@@ -118,12 +120,25 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     }
   };
 
-  const handleFavorite = async (id: number) => {
+  const handleTogglePin = async (b: Bookmark) => {
     try {
-      console.log("Favorited");
-      const response = await api.post(`bookmark/${id}`);
-    } catch (e) {
-      console.error("Fail Favoriting:", e);
+      const pinPayload: Bookmark = {
+        ...b,
+        isPinned: !b.isPinned,
+      };
+
+      const response = await api.put(
+        `/bookmarks/${pinPayload.id}`,
+        pinPayload,
+      );
+      const newPinnedBookmark = response.data;
+      setBookmarkList((prev) =>
+        prev.map((item) =>
+          item.id === pinPayload.id ? newPinnedBookmark : item,
+        ),
+      );
+    } catch (er) {
+      console.error("Fail toggling pin:", er);
     }
   };
 
@@ -149,10 +164,6 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     }
   };
 
-  const handleArchive = () => {
-    console.log("Archived");
-  };
-
   useEffect(() => {
     fetchBookmark();
   }, []);
@@ -171,7 +182,12 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           onSearchChange={setSearchQuery}
           onOpenCreateModal={handleOpenCreateModal}
         />
-        {children(bookmarkList, filteredBookmarkList, handleOpenEditModal)}
+        {children(
+          bookmarkList,
+          filteredBookmarkList,
+          handleOpenEditModal,
+          handleTogglePin,
+        )}
       </main>
 
       <BookmarkFormModal

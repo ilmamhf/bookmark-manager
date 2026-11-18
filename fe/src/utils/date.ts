@@ -1,5 +1,4 @@
 const DATE_LOCALE = "id-ID"
-const TIME_ZONE = "Asia/Jakarta"
 
 export function formatDate (isoString: string | null) {
     if (!isoString) return "-"

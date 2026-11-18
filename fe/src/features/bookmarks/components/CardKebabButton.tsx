@@ -1,11 +1,16 @@
 import { useEffect, useRef, useState } from "react";
-import api from "../../../api/axios";
 
 interface CardKebabButtonProps {
   handleOpenEditModal: () => void;
+  isPinned: boolean;
+  handleTogglePin: () => void;
 }
 
-const CardKebabButton = ({ handleOpenEditModal }: CardKebabButtonProps) => {
+const CardKebabButton = ({
+  handleOpenEditModal,
+  isPinned,
+  handleTogglePin,
+}: CardKebabButtonProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -29,26 +34,13 @@ const CardKebabButton = ({ handleOpenEditModal }: CardKebabButtonProps) => {
     };
   }, [isOpen]);
 
-  // const handleFavorite = async (id: number) => {
-  //   try {
-  //     console.log("Favorited");
-  //     const response = await api.post(`bookmark/${id}`);
-
-  //     setIsOpen(false);
-  //   } catch (e) {
-  //     console.error("Fail Favoriting:", e);
-  //   }
-  // };
-
-  // const handleEdit = () => {
-  //   console.log("Editing");
-  //   handleOpenEditModal();
-  //   setIsOpen(false);
-  // };
+  const handlePin = () => {
+    handleTogglePin();
+    setIsOpen(false);
+  };
 
   const handleArchive = () => {
     console.log("Archived");
-    setIsOpen(false);
   };
 
   return (
@@ -69,12 +61,12 @@ const CardKebabButton = ({ handleOpenEditModal }: CardKebabButtonProps) => {
       {isOpen && (
         <div className="absolute z-20 drop-shadow-sm p-2 rounded-md bg-[#ffffff] right-0">
           <button
-            key="Favorite"
+            key="Pin"
             type="button"
-            // onClick={() => handleFavorite()}
+            onClick={handlePin}
             className="flex w-full rounded-sm px-2 items-center hover:bg-[#cfe8e5]"
           >
-            <span>Favorite</span>
+            <span>{isPinned ? "Unpin" : "Pin"}</span>
           </button>
           <button
             key="Edit"

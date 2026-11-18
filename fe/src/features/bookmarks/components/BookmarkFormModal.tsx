@@ -32,6 +32,7 @@ const BookmarkFormModal = ({
         description: initialData?.description,
         tags: initialData?.tags,
         isArchived: initialData?.isArchived,
+        isPinned: initialData?.isPinned ?? false,
         updatedAt: initialData?.updatedAt,
         visitCount: initialData?.visitCount,
         lastVisitedAt: initialData?.lastVisitedAt,

@@ -7,11 +7,13 @@ import { Eye, Clock, Calendar, Pin } from "lucide-react";
 interface BookmarkCardProps {
   bookmarkItem: Bookmark;
   handleOpenEditModal: (b: Bookmark) => void;
+  handleTogglePin: (b: Bookmark) => void;
 }
 
 const BookmarkCard = ({
   bookmarkItem,
   handleOpenEditModal,
+  handleTogglePin,
 }: BookmarkCardProps) => {
   const onEditBookmark = (b: Bookmark) => {
     console.log("hello from on edit bookmark", b);
@@ -41,6 +43,8 @@ const BookmarkCard = ({
 
         <CardKebabButton
           handleOpenEditModal={() => onEditBookmark(bookmarkItem)}
+          isPinned={bookmarkItem.isPinned}
+          handleTogglePin={() => handleTogglePin(bookmarkItem)}
         />
       </div>
 
@@ -73,7 +77,13 @@ const BookmarkCard = ({
           <Calendar className="h-6 w-6 text-[#7b7d7c]" />
           <span>{formatDate(bookmarkItem.updatedAt)}</span>
         </label>
-        {/* <Pin className="ml-auto h-6 w-6 text-[#7b7d7c]" /> */}
+        {bookmarkItem.isPinned && (
+          <Pin
+            className="ml-auto h-6 w-6 text-[#004844]"
+            role="img"
+            aria-label="Pinned"
+          />
+        )}
       </div>
     </div>
   );

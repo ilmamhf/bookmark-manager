@@ -5,6 +5,7 @@ export interface Bookmark {
   description: string;
   tags: string[];
   isArchived: boolean;
+  isPinned: boolean;
 
   visitCount: number;
   createdAt: string;
@@ -20,4 +21,4 @@ export type SortOption =
  | 'title-asc'
  | 'title-desc'
 
-export type CreateBookmarkInput = Omit<Bookmark, 'id' | 'visitCount' | 'createdAt' | 'updatedAt' | 'lastVisitedAt'>
+export type CreateBookmarkInput = Omit<Bookmark, 'id' | 'visitCount' | 'createdAt' | 'updatedAt' | 'lastVisitedAt' | 'isPinned'>

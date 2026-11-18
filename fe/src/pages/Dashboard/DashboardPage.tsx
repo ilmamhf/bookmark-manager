@@ -7,12 +7,14 @@ interface DashboardPageProps {
   bookmarkList: Bookmark[];
   filteredBookmarkList: Bookmark[];
   handleOpenEditModal: (b: Bookmark) => void;
+  handleTogglePin: (b: Bookmark) => void;
 }
 
 const DashboardPage = ({
   bookmarkList,
   filteredBookmarkList,
   handleOpenEditModal,
+  handleTogglePin,
 }: DashboardPageProps) => {
   const [sortBy, setSortBy] = useState<SortOption>("newest");
 
@@ -20,6 +22,9 @@ const DashboardPage = ({
     ? filteredBookmarkList
     : bookmarkList;
   sortedBookmarks.sort((a, b) => {
+    // pinned bookmarks always come first
+    if (a.isPinned !== b.isPinned) return a.isPinned ? -1 : 1;
+
     switch (sortBy) {
       case "newest":
         return b.createdAt > a.createdAt
@@ -64,6 +69,7 @@ const DashboardPage = ({
       <BookmarkList
         bookmarkList={sortedBookmarks}
         handleOpenEditModal={handleOpenEditModal}
+        handleTogglePin={handleTogglePin}
       />
     </div>
   );
