@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Bookmark, CreateBookmarkInput } from "..";
 import FormInput from "./FormInput";
+import TagChipsField from "./TagChipsField";
 
 interface BookmarkFormModalProps {
   isOpen: boolean;
@@ -22,6 +23,28 @@ const BookmarkFormModal = ({
     tags: [],
     isArchived: false,
   });
+  console.log(initialData?.tags);
+  // const [tags, setTags] = useState<string[]>([]);
+  const [tagDraft, setTagDraft] = useState("");
+
+  const handleKeyDownTags = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" || e.key === ",") {
+      e.preventDefault();
+      const cleanTag = tagDraft.trim();
+
+      if (cleanTag && !formData.tags.includes(cleanTag)) {
+        setFormData({ ...formData, tags: [...formData.tags, tagDraft] });
+      }
+      setTagDraft("");
+    }
+  };
+
+  const removeTag = (tagToRemove: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      tags: prev.tags.filter((t) => t !== tagToRemove),
+    }));
+  };
 
   useEffect(() => {
     if (initialData) {
@@ -61,12 +84,18 @@ const BookmarkFormModal = ({
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-      onClick={onClose}
+      onClick={() => {
+        setTagDraft("");
+        onClose();
+      }}
     >
       <form
         onSubmit={handleSubmit}
-        className="bg-[#ffffff] rounded-xl p-6 flex flex-col"
-        onClick={(e) => e.stopPropagation()}
+        className="bg-[#ffffff] rounded-xl p-6 flex flex-col w-120"
+        onClick={(e) => {
+          setTagDraft("");
+          e.stopPropagation();
+        }}
       >
         <FormInput
           label="Title"
@@ -86,6 +115,17 @@ const BookmarkFormModal = ({
           }
           isLong={true}
         />
+        {/* tag chips */}
+        <TagChipsField
+          label="Tags"
+          fieldValue={tagDraft}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setTagDraft(e.target.value)
+          }
+          formData={formData}
+          onKeyDown={handleKeyDownTags}
+          removeTag={removeTag}
+        />
 
         <button
           type="submit"
@@ -94,7 +134,10 @@ const BookmarkFormModal = ({
           Submit
         </button>
         <button
-          onClick={onClose}
+          onClick={() => {
+            setTagDraft("");
+            onClose();
+          }}
           type="button"
           className="p-2 mt-4 w-30 self-center rounded-md bg-[#ffffff] border-[#e8f1f0] border-2 hover:bg-[#e8f1f0]"
         >
