@@ -12,6 +12,7 @@ interface DashboardLayoutProps {
     handleOpenEditModal: (b: Bookmark) => void,
     handleTogglePin: (b: Bookmark) => void,
     handleToggleArchive: (b: Bookmark) => void,
+    handleVisit: (b: Bookmark) => void,
   ) => React.ReactNode;
 }
 
@@ -109,7 +110,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           isPinned: false,
           createdAt: now,
           updatedAt: now,
-          lastVisitedAt: now,
+          lastVisitedAt: null,
           visitCount: 0,
         };
 
@@ -165,6 +166,29 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     }
   };
 
+  const handleVisit = async (b: Bookmark) => {
+    try {
+      const visitPayload: Bookmark = {
+        ...b,
+        visitCount: b.visitCount + 1,
+        lastVisitedAt: new Date().toISOString(),
+      };
+
+      const response = await api.put(
+        `/bookmarks/${visitPayload.id}`,
+        visitPayload,
+      );
+      const visitedBookmark = response.data;
+      setBookmarkList((prev) =>
+        prev.map((item) =>
+          item.id === visitPayload.id ? visitedBookmark : item,
+        ),
+      );
+    } catch (er) {
+      console.error("Fail recording visit:", er);
+    }
+  };
+
   const handleEdit = async (editedBookmark: Bookmark) => {
     try {
       const now = new Date().toISOString();
@@ -211,6 +235,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           handleOpenEditModal,
           handleTogglePin,
           handleToggleArchive,
+          handleVisit,
         )}
       </main>
 

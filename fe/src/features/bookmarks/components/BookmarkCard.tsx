@@ -9,6 +9,7 @@ interface BookmarkCardProps {
   handleOpenEditModal: (b: Bookmark) => void;
   handleTogglePin: (b: Bookmark) => void;
   handleToggleArchive: (b: Bookmark) => void;
+  handleVisit: (b: Bookmark) => void;
 }
 
 const BookmarkCard = ({
@@ -16,10 +17,17 @@ const BookmarkCard = ({
   handleOpenEditModal,
   handleTogglePin,
   handleToggleArchive,
+  handleVisit,
 }: BookmarkCardProps) => {
   const onEditBookmark = (b: Bookmark) => {
     console.log("hello from on edit bookmark", b);
     handleOpenEditModal(b);
+  };
+
+  const onVisit = () => handleVisit(bookmarkItem);
+  // handle auto middle click open new tab
+  const onVisitAux = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (e.button === 1) handleVisit(bookmarkItem);
   };
   return (
     <div className="bg-[#ffffff] p-4 rounded-lg flex flex-col justify-center">
@@ -28,6 +36,8 @@ const BookmarkCard = ({
         <a
           href={`https://${bookmarkItem.url}`}
           target="_blank"
+          onClick={onVisit}
+          onAuxClick={onVisitAux}
           className="border-[#e8f1f0] border-2 p-1 aspect-square items-center justify-center flex rounded-lg"
         >
           <BookmarkIcon url={bookmarkItem.url} />
@@ -37,6 +47,8 @@ const BookmarkCard = ({
           <a
             href={`https://${bookmarkItem.url}`}
             target="_blank"
+            onClick={onVisit}
+            onAuxClick={onVisitAux}
             className="font-medium text-lg"
           >
             {bookmarkItem.title}
@@ -44,6 +56,8 @@ const BookmarkCard = ({
           <a
             href={`https://${bookmarkItem.url}`}
             target="_blank"
+            onClick={onVisit}
+            onAuxClick={onVisitAux}
           >
             {bookmarkItem.url}
           </a>
