@@ -1,6 +1,6 @@
 import type { Bookmark } from "..";
-import icon from "../../../assets/react.svg";
 import { formatDate } from "../../../utils/date";
+import BookmarkIcon from "./BookmarkIcon";
 import CardKebabButton from "./CardKebabButton";
 import { Eye, Clock, Calendar, Pin } from "lucide-react";
 
@@ -25,16 +25,22 @@ const BookmarkCard = ({
     <div className="bg-[#ffffff] p-4 rounded-lg flex flex-col justify-center">
       {/* card header */}
       <div className="flex items-center gap-2 pb-2 border-b-[#e8f1f0] border-b-2">
-        <div className="border-[#e8f1f0] border-2 p-1 aspect-square items-center justify-center flex rounded-lg">
-          <img
-            src={icon}
-            alt=""
-            width={32}
-          />
-        </div>
+        <a
+          href={`https://${bookmarkItem.url}`}
+          target="_blank"
+          className="border-[#e8f1f0] border-2 p-1 aspect-square items-center justify-center flex rounded-lg"
+        >
+          <BookmarkIcon url={bookmarkItem.url} />
+        </a>
 
         <div className="flex flex-col">
-          <span className="font-medium text-lg">{bookmarkItem.title}</span>
+          <a
+            href={`https://${bookmarkItem.url}`}
+            target="_blank"
+            className="font-medium text-lg"
+          >
+            {bookmarkItem.title}
+          </a>
           <a
             href={`https://${bookmarkItem.url}`}
             target="_blank"
