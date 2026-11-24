@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { Bookmark, CreateBookmarkInput } from "..";
 import FormInput from "./FormInput";
 import TagChipsField from "./TagChipsField";
+import useBookmarkForm from "../hooks/useBookmarkForm";
 
 interface BookmarkFormModalProps {
   isOpen: boolean;
@@ -16,70 +17,17 @@ const BookmarkFormModal = ({
   onSubmit,
   initialData,
 }: BookmarkFormModalProps) => {
-  const [formData, setFormData] = useState<CreateBookmarkInput | Bookmark>({
-    title: "",
-    url: "",
-    description: "",
-    tags: [],
-    isArchived: false,
-  });
-  console.log(initialData?.tags);
-  // const [tags, setTags] = useState<string[]>([]);
-  const [tagDraft, setTagDraft] = useState("");
-
-  const handleKeyDownTags = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" || e.key === ",") {
-      e.preventDefault();
-      const cleanTag = tagDraft.trim();
-
-      if (cleanTag && !formData.tags.includes(cleanTag)) {
-        setFormData({ ...formData, tags: [...formData.tags, tagDraft] });
-      }
-      setTagDraft("");
-    }
-  };
-
-  const removeTag = (tagToRemove: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      tags: prev.tags.filter((t) => t !== tagToRemove),
-    }));
-  };
-
-  useEffect(() => {
-    if (initialData) {
-      setFormData({
-        id: initialData?.id,
-        title: initialData?.title,
-        url: initialData?.url,
-        description: initialData?.description,
-        tags: initialData?.tags,
-        isArchived: initialData?.isArchived,
-        isPinned: initialData?.isPinned ?? false,
-        updatedAt: initialData?.updatedAt,
-        visitCount: initialData?.visitCount,
-        lastVisitedAt: initialData?.lastVisitedAt,
-        createdAt: initialData?.createdAt,
-      });
-    } else {
-      setFormData({
-        title: "",
-        url: "",
-        description: "",
-        tags: [],
-        isArchived: false,
-      });
-    }
-  }, [initialData, isOpen]);
+  const {
+    formData,
+    setFormData,
+    tagDraft,
+    setTagDraft,
+    handleKeyDownTags,
+    removeTag,
+    handleSubmit,
+  } = useBookmarkForm(isOpen, onClose, onSubmit, initialData);
 
   if (!isOpen) return null;
-
-  const handleSubmit = (e: React.SubmitEvent) => {
-    e.preventDefault();
-    // console.log("handle submit", formData);
-    onSubmit(formData);
-    onClose();
-  };
 
   return (
     <div
