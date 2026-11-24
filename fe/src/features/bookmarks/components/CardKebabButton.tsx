@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import useBookmarkKebab from "../hooks/useBookmarkKebab";
 
 interface CardKebabButtonProps {
   handleOpenEditModal: () => void;
@@ -15,38 +15,8 @@ const CardKebabButton = ({
   isArchived,
   handleToggleArchive,
 }: CardKebabButtonProps) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen]);
-
-  const handlePin = () => {
-    handleTogglePin();
-    setIsOpen(false);
-  };
-
-  const handleArchive = () => {
-    handleToggleArchive();
-    setIsOpen(false);
-  };
+  const { isOpen, setIsOpen, dropdownRef, handlePin, handleArchive } =
+    useBookmarkKebab(handleTogglePin, handleToggleArchive);
 
   return (
     <div
