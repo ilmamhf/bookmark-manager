@@ -1,5 +1,4 @@
-import { useState } from "react";
-import type { Bookmark, SortOption } from "../../features/bookmarks";
+import type { Bookmark } from "../../features/bookmarks";
 import BookmarkList from "../../features/bookmarks/components/BookmarkList";
 import SortDropdown from "./components/SortDropdown";
 import useBookmarksSort from "../../features/bookmarks/hooks/useBookmarksSort";
