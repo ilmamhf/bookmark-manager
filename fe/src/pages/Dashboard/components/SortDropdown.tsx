@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from "react";
 import type { SortOption } from "../../../features/bookmarks";
 import { ArrowDownUp } from "lucide-react";
 import useSortDropdown from "../hooks/useSortDropdown";
