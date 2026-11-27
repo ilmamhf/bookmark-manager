@@ -1,6 +1,7 @@
 import type { SortOption } from "../../../features/bookmarks";
 import { ArrowDownUp } from "lucide-react";
 import useSortDropdown from "../hooks/useSortDropdown";
+import { useBookmarkContext } from "../../../features/bookmarks/context/BookmarkContext";
 
 const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: "newest", label: "Recently Updated" },
@@ -11,14 +12,11 @@ const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: "title-desc", label: "Title (Z-A)" },
 ];
 
-interface SortDropdownProps {
-  buttonValue: SortOption;
-  onChange: (value: SortOption) => void;
-}
+const SortDropdown = () => {
+  const { sortBy, setSortBy } = useBookmarkContext();
 
-const SortDropdown = ({ buttonValue, onChange }: SortDropdownProps) => {
   const { isOpen, setIsOpen, dropdownRef, handleSelect } =
-    useSortDropdown(onChange);
+    useSortDropdown(setSortBy);
 
   return (
     <div
@@ -36,7 +34,7 @@ const SortDropdown = ({ buttonValue, onChange }: SortDropdownProps) => {
       {isOpen && (
         <div className="absolute z-20 w-48 right-0 drop-shadow-md p-2 rounded-md bg-[#ffffff]">
           {SORT_OPTIONS.map((option) => {
-            const isSelected = option.value === buttonValue;
+            const isSelected = option.value === sortBy;
             return (
               <button
                 className={`flex w-full rounded-sm px-2 items-center hover:bg-[#cfe8e5] ${isSelected ? "bg-[#e8f1f0]" : ""}`}

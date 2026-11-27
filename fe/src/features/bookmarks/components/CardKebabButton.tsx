@@ -1,22 +1,16 @@
+import type { Bookmark } from "..";
+import { useBookmarkContext } from "../context/BookmarkContext";
 import useBookmarkKebab from "../hooks/useBookmarkKebab";
 
 interface CardKebabButtonProps {
-  handleOpenEditModal: () => void;
-  isPinned: boolean;
-  handleTogglePin: () => void;
-  isArchived: boolean;
-  handleToggleArchive: () => void;
+  bookmark: Bookmark;
 }
 
-const CardKebabButton = ({
-  handleOpenEditModal,
-  isPinned,
-  handleTogglePin,
-  isArchived,
-  handleToggleArchive,
-}: CardKebabButtonProps) => {
+const CardKebabButton = ({ bookmark }: CardKebabButtonProps) => {
+  const { openEditModal, togglePin, toggleArchive } = useBookmarkContext();
+
   const { isOpen, setIsOpen, dropdownRef, handlePin, handleArchive } =
-    useBookmarkKebab(handleTogglePin, handleToggleArchive);
+    useBookmarkKebab(bookmark, togglePin, toggleArchive);
 
   return (
     <div
@@ -41,12 +35,12 @@ const CardKebabButton = ({
             onClick={handlePin}
             className="flex w-full rounded-sm px-2 items-center hover:bg-[#cfe8e5]"
           >
-            <span>{isPinned ? "Unpin" : "Pin"}</span>
+            <span>{bookmark.isPinned ? "Unpin" : "Pin"}</span>
           </button>
           <button
             key="Edit"
             type="button"
-            onClick={() => handleOpenEditModal()}
+            onClick={() => openEditModal(bookmark)}
             className="flex w-full rounded-sm px-2 items-center hover:bg-[#cfe8e5]"
           >
             <span>Edit</span>
@@ -57,7 +51,7 @@ const CardKebabButton = ({
             onClick={handleArchive}
             className="flex w-full rounded-sm px-2 items-center hover:bg-[#cfe8e5]"
           >
-            <span>{isArchived ? "Unarchive" : "Archive"}</span>
+            <span>{bookmark.isArchived ? "Unarchive" : "Archive"}</span>
           </button>
         </div>
       )}

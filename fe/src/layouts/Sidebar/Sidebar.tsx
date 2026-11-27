@@ -1,21 +1,11 @@
-import type { DashboardView } from "../DashboardLayout";
+import { useBookmarkContext } from "../../features/bookmarks/context/BookmarkContext";
 import NavButton from "./components/NavButton";
 import TagsCheckbox from "./components/TagsCheckbox";
 import { Bookmark, Home, Archive } from "lucide-react";
 
-interface SidebarProps {
-  tagList: { name: string; count: number }[];
-  handleTagChange: (value: string) => void | null;
-  handleViewChange: (value: DashboardView) => void;
-  activeView: DashboardView;
-}
-
-const Sidebar = ({
-  tagList,
-  handleTagChange,
-  handleViewChange,
-  activeView,
-}: SidebarProps) => {
+const Sidebar = () => {
+  const { tagList, handleTagChange, handleViewChange, activeView } =
+    useBookmarkContext();
   return (
     <aside className="w-80 bg-[#ffffff] p-4 border-r-[#f3f5f4] border-r-2">
       <div className="flex items-center py-4 pb-8">
