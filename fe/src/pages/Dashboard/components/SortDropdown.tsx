@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
 import type { SortOption } from "../../../features/bookmarks";
 import { ArrowDownUp } from "lucide-react";
+import useSortDropdown from "../hooks/useSortDropdown";
 
 const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: "newest", label: "Recently Updated" },
@@ -17,31 +17,8 @@ interface SortDropdownProps {
 }
 
 const SortDropdown = ({ buttonValue, onChange }: SortDropdownProps) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen]);
-  const handleSelect = (option: SortOption) => {
-    onChange(option);
-    setIsOpen(false);
-  };
+  const { isOpen, setIsOpen, dropdownRef, handleSelect } =
+    useSortDropdown(onChange);
 
   return (
     <div

@@ -1,7 +1,7 @@
-import { useState } from "react";
-import type { Bookmark, SortOption } from "../../features/bookmarks";
+import type { Bookmark } from "../../features/bookmarks";
 import BookmarkList from "../../features/bookmarks/components/BookmarkList";
 import SortDropdown from "./components/SortDropdown";
+import useBookmarksSort from "../../features/bookmarks/hooks/useBookmarksSort";
 
 interface DashboardPageProps {
   bookmarkList: Bookmark[];
@@ -20,45 +20,10 @@ const DashboardPage = ({
   handleToggleArchive,
   handleVisit,
 }: DashboardPageProps) => {
-  const [sortBy, setSortBy] = useState<SortOption>("newest");
-
-  const sortedBookmarks = filteredBookmarkList
-    ? filteredBookmarkList
-    : bookmarkList;
-  sortedBookmarks.sort((a, b) => {
-    // pinned bookmarks always come first
-    if (a.isPinned !== b.isPinned) return a.isPinned ? -1 : 1;
-
-    switch (sortBy) {
-      case "newest":
-        return b.createdAt > a.createdAt
-          ? 1
-          : b.createdAt < a.createdAt
-            ? -1
-            : 0;
-      case "oldest":
-        return a.createdAt > b.createdAt
-          ? 1
-          : a.createdAt < b.createdAt
-            ? -1
-            : 0;
-      case "most-visited":
-        return b.visitCount - a.visitCount;
-      case "last-visited":
-        if (a.lastVisitedAt === null && b.lastVisitedAt === null) return 0;
-        if (a.lastVisitedAt === null) return 1;
-        if (b.lastVisitedAt === null) return -1;
-        return b.lastVisitedAt > a.lastVisitedAt
-          ? 1
-          : b.lastVisitedAt < a.lastVisitedAt
-            ? -1
-            : 0;
-      case "title-asc":
-        return a.title.localeCompare(b.title);
-      case "title-desc":
-        return b.title.localeCompare(a.title);
-    }
-  });
+  const { sortBy, setSortBy, sortedBookmarks } = useBookmarksSort(
+    bookmarkList,
+    filteredBookmarkList,
+  );
 
   return (
     <div className="p-8 grid grid-flow-row gap-4">
