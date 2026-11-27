@@ -1,28 +1,16 @@
 import type { Bookmark } from "..";
 import { formatDate } from "../../../utils/date";
+import { useBookmarkContext } from "../context/BookmarkContext";
 import BookmarkIcon from "./BookmarkIcon";
 import CardKebabButton from "./CardKebabButton";
 import { Eye, Clock, Calendar, Pin } from "lucide-react";
 
 interface BookmarkCardProps {
   bookmarkItem: Bookmark;
-  handleOpenEditModal: (b: Bookmark) => void;
-  handleTogglePin: (b: Bookmark) => void;
-  handleToggleArchive: (b: Bookmark) => void;
-  handleVisit: (b: Bookmark) => void;
 }
 
-const BookmarkCard = ({
-  bookmarkItem,
-  handleOpenEditModal,
-  handleTogglePin,
-  handleToggleArchive,
-  handleVisit,
-}: BookmarkCardProps) => {
-  const onEditBookmark = (b: Bookmark) => {
-    console.log("hello from on edit bookmark", b);
-    handleOpenEditModal(b);
-  };
+const BookmarkCard = ({ bookmarkItem }: BookmarkCardProps) => {
+  const { handleVisit } = useBookmarkContext();
 
   const onVisit = () => handleVisit(bookmarkItem);
   // handle auto middle click open new tab
@@ -63,13 +51,7 @@ const BookmarkCard = ({
           </a>
         </div>
 
-        <CardKebabButton
-          handleOpenEditModal={() => onEditBookmark(bookmarkItem)}
-          isPinned={bookmarkItem.isPinned}
-          handleTogglePin={() => handleTogglePin(bookmarkItem)}
-          isArchived={bookmarkItem.isArchived}
-          handleToggleArchive={() => handleToggleArchive(bookmarkItem)}
-        />
+        <CardKebabButton bookmark={bookmarkItem} />
       </div>
 
       {/* card body */}

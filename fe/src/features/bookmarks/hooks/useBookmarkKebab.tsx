@@ -1,8 +1,10 @@
 import { useState, useRef, useEffect } from "react";
+import type { Bookmark } from "..";
 
 const useBookmarkKebab = (
-  handleTogglePin: () => void,
-  handleToggleArchive: () => void,
+  bookmark: Bookmark,
+  handleTogglePin: (b: Bookmark) => void,
+  handleToggleArchive: (b: Bookmark) => void,
 ) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -28,12 +30,12 @@ const useBookmarkKebab = (
   }, [isOpen]);
 
   const handlePin = () => {
-    handleTogglePin();
+    handleTogglePin(bookmark);
     setIsOpen(false);
   };
 
   const handleArchive = () => {
-    handleToggleArchive();
+    handleToggleArchive(bookmark);
     setIsOpen(false);
   };
 
